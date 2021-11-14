@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 //pubblica
 Route::get('/', 'PageController@index')->name('index');
+Route::get('/posts', 'PostController@index');
+Route::get('/posts/{slug}', 'PostController@show')->name("post.show");
 
 Auth::routes();
 
