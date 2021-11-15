@@ -13,7 +13,7 @@
                     <p>{{$post->content}}</p>
                     <h5>Creato il {{$post->created_at->format('d.m.Y')}}</h5>
                     <div class="d-flex justify-content-center">
-                        <a href=""><button type="button" class="btn btn-warning mr-3">Modifica</button></a>
+                        <a href="{{route('admin.posts.edit', $post->id)}}"><button type="button" class="btn btn-warning mr-3">Modifica</button></a>
                         <form action="{{route("admin.posts.destroy", $post->id)}}" method="POST">
                             @csrf
                             @method("DELETE")

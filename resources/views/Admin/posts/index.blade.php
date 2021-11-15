@@ -8,6 +8,7 @@
                 <div class="card-header">
                     <a href="{{route('admin.home')}}" class="freccetta mr-2">&#10148;</a>
                     {{ __('Posts') }}
+                    <td><a href="{{route('admin.posts.create')}}"><button type="button" class="btn btn-success ml-2">Crea Nuovo post</button></a></td>
                 </div>
                 <div class="card-body">
                     @if ($message = Session::get('success'))
@@ -34,13 +35,11 @@
                                 <td>{{$post->title}}</td>
                                 <td>{{$post->created_at->format('d.m.Y')}}</td>
                                 <td><a href="{{route('admin.posts.show', $post->id)}}"><button type="button" class="btn btn-primary">Visualizza</button></a></td>
-                                <td><a href=""><button type="button" class="btn btn-warning">Modifica</button></a></td>
+                                <td><a href="{{route('admin.posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
                                 <td>
-                                    <form action="{{route("admin.posts.destroy", $post->id)}}" method="POST">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button type="submit" class="btn btn-danger">Elimina</button>
-                                    </form>
+                                    <button type="button" data-id="{{$post->id}}" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#exampleModal">
+                                        Elimina
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -51,4 +50,33 @@
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Sei sicuro di voler Cancellare il post
+        </div>
+        <div class="modal-footer">
+            <form action="{{route("admin.posts.destroy", "id")}}" method="POST">
+                @csrf
+                @method("DELETE")
+                <input type="hidden" id="delete-id" name="id">
+                <button type="submit" class="btn btn-danger">Si</button>
+            </form>
+          <button type="button" class="btn btn-primary">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
