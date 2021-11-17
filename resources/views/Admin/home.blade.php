@@ -16,7 +16,11 @@
 
                     {{ __('You are logged in!') }}
                     <br>
-                    <a href="{{route('admin.posts.index')}}">Visualizza i post</a>
+                    <ul>
+                        <li><a href="{{route('admin.posts.index')}}">Visualizza i post</a></li>
+                        <li><a href="{{route('admin.categories.index')}}">Visualizza le categorie</a></li>
+                    </ul>
+                    
                 </div>
 
             </div>

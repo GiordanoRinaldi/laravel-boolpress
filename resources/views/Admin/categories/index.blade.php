@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header">
                     <a href="{{route('admin.home')}}" class="freccetta mr-2">&#10148;</a>
-                    {{ __('Posts') }}
-                    <td><a href="{{route('admin.posts.create')}}"><button type="button" class="btn btn-success ml-2">Crea Nuovo post</button></a></td>
+                    {{ __('Categorie') }}
+                    <a href="{{route('admin.categories.create')}}"><button type="button" class="btn btn-success ml-2">Crea Nuova Categoria</button></a>
                 </div>
                 <div class="card-body">
                     @if ($message = Session::get('success'))
@@ -21,25 +21,21 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Creato il</th>
-                            <th scope="col">Categoria</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Visualizza</th>
                             <th scope="col">Modifica</th>
                             <th scope="col">Elimina</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($posts as $post)
+                            @foreach ($categories as $category)
                             <tr>
-                                <th scope="row">{{$post->id}}</th>
-                                <td>{{$post->title}}</td>
-                                <td>{{$post->created_at->format('d.m.Y')}}</td>
-                                <td>{{$post->category->name ?? " "}}</td>
-                                <td><a href="{{route('admin.posts.show', $post->id)}}"><button type="button" class="btn btn-primary">Visualizza</button></a></td>
-                                <td><a href="{{route('admin.posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
+                                <th scope="row">{{$category->id}}</th>
+                                <td>{{$category->name}}</td>
+                                <td><a href="{{route('admin.categories.show', $category->id)}}"><button type="button" class="btn btn-primary">Visualizza</button></a></td>
+                                <td><a href="{{route('admin.categories.edit', $category->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
                                 <td>
-                                    <button type="button" data-id="{{$post->id}}" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#exampleModal">
+                                    <button type="button" data-id="{{$category->id}}" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#exampleModal">
                                         Elimina
                                     </button>
                                 </td>
@@ -61,16 +57,16 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione Post</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Conferma Cancellazione Categoria</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Sei sicuro di voler Cancellare il post
+          Sei sicuro di voler Cancellare questa categoria?
         </div>
         <div class="modal-footer">
-            <form action="{{route("admin.posts.destroy", "id")}}" method="POST">
+            <form action="{{route("admin.categories.destroy", "id")}}" method="POST">
                 @csrf
                 @method("DELETE")
                 <input type="hidden" id="delete-id" name="id">
