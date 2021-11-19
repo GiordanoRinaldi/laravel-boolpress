@@ -52,7 +52,7 @@
 
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Album example</h1>
+          <h1 class="jumbotron-heading">Tutti i post associati a {{$category["name"]}}</h1>
           <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
           <p>
             <a href="#" class="btn btn-primary my-2">Main call to action</a>
@@ -64,38 +64,26 @@
       <div class="album py-5 bg-light">
         <div class="container">
 
-          <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow ">
-                        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                        <div class="card-body">
-                            <h3>{{$post->title}}</h3>
-                        <p class="card-text">{{$post->content}}</p>
-                        <div>
-                          <p>
-                            @if (count($post["tags"]) > 0)
-                              <span>Tags:</span>
-                            @foreach ($post['tags'] as $tag)
-                              <span class="badge badge-primary">{{$tag->name}}</span>
-                            @endforeach  
-                            @endif  
-                            </div>
-                            <div>
-                              <p>
-                              @if ($post["category"])
-                              <span>Categoria: <a href="{{route('categories.show', $post->category->slug)}}">{{$post["category"]["name"]}}</a> </span>  
-                              @endif 
-                              </p>
-                            </div>
-                          </p>  
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Creato il: {{$post->created_at->format('d/m/Y')}}</small>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="row">
+            @foreach ($category->posts as $post)
+              <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                  <div class="card-body">
+                      <h3>{{$post->title}}</h3>
+                  <p class="card-text">{{mb_strimwidth($post->content, 0, 70, "...")}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                      <a href="{{route('post.show', $post->slug)}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                      </div>
+                      <small class="text-muted">Creato il: {{$post->created_at->format('d/m/Y')}}</small>
+                  </div>
+                  </div>
+              </div>
+              </div>
+            @endforeach
           </div>
+        </div>
         </div>
       </div>
 

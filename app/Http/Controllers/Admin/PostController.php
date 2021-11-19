@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
     protected $validationRule = [
         'title'=> 'string|required|max:100',
         'content'=> 'string|required',
-        'category_id'=> 'nullable|exists:categories,id'
+        'category_id'=> 'nullable|exists:categories,id',
+        'tags'=>'exists:tags,id'
     ];
     /**
      * Display a listing of the resource.
@@ -35,8 +37,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
         
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -71,6 +74,8 @@ class PostController extends Controller
 
        $newPost->save();
 
+       $newPost->tags()->attach($request->tags);
+
        return redirect()->route('admin.posts.index')->with('success', "Il post é stato creato");
     }
 
@@ -94,8 +99,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -132,6 +138,8 @@ class PostController extends Controller
 
         $post->save();
 
+        $post->tags()->sync($request->tags);
+
         return redirect()->route('admin.posts.show', $post->id);
     }
 
@@ -141,11 +149,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request , Post $post)
     {
-        $post = Post::find($request->id);
+        $posts = Post::find($request->id);
+
+        if(empty($posts)){
+            $post->delete();
+        } else{
+            $posts->delete();
+        }
         
-        $post->delete();
+       
 
         return redirect()->route("admin.posts.index")
         ->with('success', "Il post é stato eliminato");

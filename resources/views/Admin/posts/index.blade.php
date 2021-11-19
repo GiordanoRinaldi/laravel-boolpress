@@ -24,6 +24,7 @@
                             <th scope="col">Title</th>
                             <th scope="col">Creato il</th>
                             <th scope="col">Categoria</th>
+                            <th scope="col" class="text-center">Tags</th>
                             <th scope="col">Visualizza</th>
                             <th scope="col">Modifica</th>
                             <th scope="col">Elimina</th>
@@ -36,6 +37,13 @@
                                 <td>{{$post->title}}</td>
                                 <td>{{$post->created_at->format('d.m.Y')}}</td>
                                 <td>{{$post->category->name ?? " "}}</td>
+                                <td class="text-center">
+                                  @if (count($post["tags"]) > 0)
+                                  @foreach ($post['tags'] as $tag)
+                                    <h4><span class="badge badge-primary">{{$tag->name}}</span></h4>
+                                  @endforeach  
+                                  @endif
+                                </td>
                                 <td><a href="{{route('admin.posts.show', $post->id)}}"><button type="button" class="btn btn-primary">Visualizza</button></a></td>
                                 <td><a href="{{route('admin.posts.edit', $post->id)}}"><button type="button" class="btn btn-warning">Modifica</button></a></td>
                                 <td>
@@ -76,7 +84,7 @@
                 <input type="hidden" id="delete-id" name="id">
                 <button type="submit" class="btn btn-danger">Si</button>
             </form>
-          <button type="button" class="btn btn-primary">No</button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
         </div>
       </div>
     </div>

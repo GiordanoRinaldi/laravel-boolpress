@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <a href="{{route('admin.posts.index')}}" class="freccetta mr-2">&#10148;</a>
-                    {{ __('Aggiungi Post') }}</div>
+                    {{ __('Modifica Post') }}</div>
                 <div class="card-body">
                     <form action="{{route('admin.posts.update', $post->id)}}" method="POST">
                         @csrf
@@ -35,6 +35,22 @@
                                 <option {{ old("category_id") != null && old("category_id") == $category->id || isset($post->category) && $post->category->id == $category->id  ? 'selected' : null}} value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                                <div class="alert alert-danger mt-3">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <h5>Seleziona i tag</h5>
+                            @foreach ($tags as $tag)
+                            <div class="custom-control custom-checkbox">
+                                @if ($errors->any())
+                                <input {{in_array($tag->id, old('tags', []))? "checked" : " "}} name="tags[]" value="{{$tag->id}}" name="tags[]" value="{{$tag->id}}" type="checkbox" class="custom-control-input" id="tag-{{$tag->id}}">
+                                @else
+                                <input {{$post->tags->contains($tag->id) ? "checked" : " "}} name="tags[]" value="{{$tag->id}}" type="checkbox" class="custom-control-input" id="tag-{{$tag->id}}">    
+                                @endif
+                                <label class="custom-control-label" for="tag-{{$tag->id}}">{{$tag->name}}</label>     
+                            </div>
+                            @endforeach
                             @error('category_id')
                                 <div class="alert alert-danger mt-3">{{ $message }}</div>
                             @enderror

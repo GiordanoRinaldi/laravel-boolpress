@@ -72,7 +72,7 @@
                 <input type="hidden" id="delete-id" name="id">
                 <button type="submit" class="btn btn-danger">Si</button>
             </form>
-          <button type="button" class="btn btn-primary">No</button>
+          <button type="button" data-dismiss="modal" class="btn btn-primary">No</button>
         </div>
       </div>
     </div>
