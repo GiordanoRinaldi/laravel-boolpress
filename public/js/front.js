@@ -2464,7 +2464,18 @@ var render = function () {
                   "d-flex justify-content-between align-items-center",
               },
               [
-                _vm._m(0, true),
+                _c("div", { staticClass: "btn-group" }, [
+                  _c("a", { attrs: { href: "/posts/" + post.slug } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-outline-secondary",
+                        attrs: { type: "button" },
+                      },
+                      [_vm._v("View")]
+                    ),
+                  ]),
+                ]),
                 _vm._v(" "),
                 _c("small", { staticClass: "text-muted" }, [
                   _vm._v("Creato il: " + _vm._s(post.created_at)),
@@ -2478,25 +2489,7 @@ var render = function () {
     0
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-outline-secondary",
-            attrs: { type: "button" },
-          },
-          [_vm._v("View")]
-        ),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

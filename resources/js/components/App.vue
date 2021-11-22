@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                     <!-- <a href="{{route('post.show', $post->slug)}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a> -->
-                    <a href="#"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                    <a :href="`/posts/${post.slug}`"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                     </div>
                     <!-- <small class="text-muted">Creato il: {{$post->created_at->format('d/m/Y')}}</small> -->
                     <small class="text-muted">Creato il: {{post.created_at}}</small>
