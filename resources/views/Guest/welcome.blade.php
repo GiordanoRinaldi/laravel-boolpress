@@ -85,6 +85,7 @@
 
                 <div>
                     <a href="/posts"><button type="button" class="btn btn-success">Entra</button></a>
+                    <a href="/api-posts"><button type="button" class="btn btn-success">Entra ini Formato Vue</button></a>
                 </div>
             </div>
         </div>

@@ -11,4 +11,9 @@ class PageController extends Controller
         return view('guest.welcome');
     }
 
+    public function apiPosts()
+    {
+        return view('guest.api');
+    }
+
 }
